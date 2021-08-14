@@ -15,8 +15,4 @@
     <ProjectReference Include="..\DotNetCoreCurrencyApi.Data\DotNetCoreCurrencyApi.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,8 @@
 using DotNetCoreCurrencyApi.Core;
 using DotNetCoreCurrencyApi.Data;
 using DotNetCoreCurrencyApi.Infrastructure;
+using DotNetCoreCurrencyApi.Infrastructure.Middleware;
+using DotNetCoreCurrencyApi.Infrastructure.Validators;
 using DotNetCoreCurrencyApi.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -39,11 +41,19 @@ namespace DotNetCoreCurrencyApi
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddMvc().AddFluentValidation(mvcConf => mvcConf.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddMvc().AddFluentValidation(mvcConf => mvcConf.RegisterValidatorsFromAssemblyContaining<ModelValidators>());
 
             services.AddTransient<IEntityGenericRepository, EntityGenericRepository<AppDatabaseContext>>();
 
             services.AddTransient<IBusinessLogicService, RepositoryService<IEntityGenericRepository>>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
 
             services.AddHttpClient(Constants.HttpClientFactoryName, client =>
             {
@@ -68,6 +78,8 @@ namespace DotNetCoreCurrencyApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNetCoreCurrencyApi v1"));
             }
+
+            app.UseGlobalExceptionMiddleware();
 
             app.UseHttpsRedirection();
 
