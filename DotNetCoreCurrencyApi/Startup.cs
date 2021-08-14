@@ -27,6 +27,7 @@ namespace DotNetCoreCurrencyApi
         }
 
         public IConfiguration Configuration { get; }
+        private readonly string _policyName = "CorsPolicy";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -37,7 +38,7 @@ namespace DotNetCoreCurrencyApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DotNetCoreCurrencyApi", Version = "v1" });
             });
 
-            services.AddDbContext<AppDatabaseContext>(options => options.UseInMemoryDatabase("Transactions"));
+            services.AddDbContext<AppDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConn")));
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -49,8 +50,8 @@ namespace DotNetCoreCurrencyApi
 
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                options.AddPolicy(_policyName, builder => builder
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
@@ -84,6 +85,8 @@ namespace DotNetCoreCurrencyApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(_policyName);
 
             app.UseAuthorization();
 

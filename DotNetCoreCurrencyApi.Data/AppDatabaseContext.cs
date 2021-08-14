@@ -25,9 +25,17 @@ namespace DotNetCoreCurrencyApi.Data
                 entity.Property(e => e.TransactionDate).IsRequired();
             });
 
+            modelBuilder.Entity<Currency>(entity =>
+            {
+                entity.ToTable("Currencies");
+                entity.Property(e => e.Code).IsRequired().HasMaxLength(3);
+                entity.Property(e => e.TransactionLimitPerMonth).IsRequired().HasColumnType("decimal(18, 2)");
+            });
+
             base.OnModelCreating(modelBuilder);
         }
 
+        public virtual DbSet<Currency> Currencies { get; set; }
         public virtual DbSet<ExchangeTransaction> ExchangeTransactions { get; set; }
     }
 }
