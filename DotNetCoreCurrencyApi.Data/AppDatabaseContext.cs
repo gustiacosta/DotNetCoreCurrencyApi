@@ -30,6 +30,9 @@ namespace DotNetCoreCurrencyApi.Data
                 entity.ToTable("Currencies");
                 entity.Property(e => e.Code).IsRequired().HasMaxLength(3);
                 entity.Property(e => e.TransactionLimitPerMonth).IsRequired().HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.RateApiEndpoint).IsRequired().HasMaxLength(300);
+                entity.Property(e => e.RateQueryEnabled).IsRequired();
+                entity.Property(e => e.USDRateBase).IsRequired().HasColumnType("decimal(18, 2)");
             });
 
             base.OnModelCreating(modelBuilder);

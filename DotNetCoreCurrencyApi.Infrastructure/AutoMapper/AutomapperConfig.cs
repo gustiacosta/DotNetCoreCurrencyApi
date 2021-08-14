@@ -8,6 +8,7 @@ namespace DotNetCoreCurrencyApi.Infrastructure.AutoMapper
     {
         public AutomapperConfig()
         {
+            CreateMap<Currency, CurrencyModel>().ReverseMap();
             CreateMap<ExchangeTransaction, ExchangeTransactionModel>().ReverseMap();
         }
     }

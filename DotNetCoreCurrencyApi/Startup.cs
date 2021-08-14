@@ -1,4 +1,3 @@
-using DotNetCoreCurrencyApi.Core;
 using DotNetCoreCurrencyApi.Data;
 using DotNetCoreCurrencyApi.Infrastructure;
 using DotNetCoreCurrencyApi.Infrastructure.Middleware;
@@ -40,7 +39,7 @@ namespace DotNetCoreCurrencyApi
 
             services.AddDbContext<AppDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConn")));
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddMvc().AddFluentValidation(mvcConf => mvcConf.RegisterValidatorsFromAssemblyContaining<ModelValidators>());
 

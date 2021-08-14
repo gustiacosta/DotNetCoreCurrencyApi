@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DotNetCoreCurrencyApi.Core.Domain
+﻿namespace DotNetCoreCurrencyApi.Core.Models
 {
-    public class Currency
+    public class CurrencyModel
     {
-        [Key]
         public int Id { get; set; }
         public string Code { get; set; }
         public decimal TransactionLimitPerMonth { get; set; }
