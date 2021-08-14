@@ -26,12 +26,12 @@ namespace DotNetCoreCurrencyApi.Controllers
         }
 
         [HttpGet]
-        [Route("currency/get-current")]
-        public async Task<IActionResult> GetCurrent()
+        [Route("exchange/rates/{currencycode}")]
+        public async Task<IActionResult> GetCurrent(string currencycode)
         {
             try
             {
-                return Ok();
+                return Ok("");
             }
             catch (Exception ex)
             {
