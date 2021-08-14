@@ -2,6 +2,7 @@ using DotNetCoreCurrencyApi.Core;
 using DotNetCoreCurrencyApi.Data;
 using DotNetCoreCurrencyApi.Infrastructure;
 using DotNetCoreCurrencyApi.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -36,12 +37,19 @@ namespace DotNetCoreCurrencyApi
 
             services.AddDbContext<AppDatabaseContext>(options => options.UseInMemoryDatabase("Transactions"));
 
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddMvc().AddFluentValidation(mvcConf => mvcConf.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             services.AddTransient<IEntityGenericRepository, EntityGenericRepository<AppDatabaseContext>>();
+
             services.AddTransient<IBusinessLogicService, RepositoryService<IEntityGenericRepository>>();
 
-            services.AddHttpClient(Constants.HttpClientFactoryName)
-                .SetHandlerLifetime(TimeSpan.FromMinutes(5))
-                .AddPolicyHandler(GetRetryPolicy());
+            services.AddHttpClient(Constants.HttpClientFactoryName, client =>
+            {
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            }).SetHandlerLifetime(TimeSpan.FromMinutes(5))
+              .AddPolicyHandler(GetRetryPolicy());
         }
 
         private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
@@ -71,6 +79,8 @@ namespace DotNetCoreCurrencyApi
             {
                 endpoints.MapControllers();
             });
+
+            // add healthcheck
         }
     }
 }
