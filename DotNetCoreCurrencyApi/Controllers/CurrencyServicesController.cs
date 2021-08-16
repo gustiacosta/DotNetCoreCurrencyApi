@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
 using DotNetCoreCurrencyApi.Core.Domain;
 using DotNetCoreCurrencyApi.Core.Models;
+using DotNetCoreCurrencyApi.Infrastructure.Helpers;
 using DotNetCoreCurrencyApi.Services;
-using FluentValidation.AspNetCore;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
-using static DotNetCoreCurrencyApi.Infrastructure.Validators.ModelValidators;
 
 namespace DotNetCoreCurrencyApi.Controllers
 {
@@ -23,7 +23,7 @@ namespace DotNetCoreCurrencyApi.Controllers
         private readonly ILogger<CurrencyServicesController> _logger;
 
         public CurrencyServicesController(ILogger<CurrencyServicesController> logger, IMapper mapper,
-                                          IConfiguration _configuration, IHttpClientFactory clientFactory, IBusinessLogicService service)
+                                          IHttpClientFactory clientFactory, IBusinessLogicService service)
         {
             _logger = logger;
             _mapper = mapper;
@@ -31,27 +31,11 @@ namespace DotNetCoreCurrencyApi.Controllers
             _httpClientFactory = clientFactory;
         }
 
-        [HttpGet]
-        [Route("currencies")]
-        public async Task<IActionResult> GetCurrencies()
-        {
-            try
-            {
-                var currencies = await _service.GetAsync<Currency>();
-
-                return Ok(new ResponseModel
-                {
-                    Message = currencies == null ? "No currencies found" : "Currency list",
-                    StatusCode = currencies == null ? StatusCodes.Status404NotFound : StatusCodes.Status200OK,
-                    Data = currencies == null ? string.Empty : _mapper.Map<IEnumerable<CurrencyModel>>(currencies)
-                });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.ToString());
-            }
-            return BadRequest();
-        }
+        // -----------------------------------------------------------------------------------------------------------------------------------------------------
+        // Comments: 
+        // The text result from calling the dolar api endpoint is not a clean json data, it doesn't have property names, so we need to parse it in a different way.
+        // We can have a json template from each api endpoint saved with each currency in our db, so the parsing method will be dynamic and easier to extend
+        // -----------------------------------------------------------------------------------------------------------------------------------------------------
 
         [HttpGet]
         [Route("currencies/rates/{currencycode}")]
@@ -59,6 +43,8 @@ namespace DotNetCoreCurrencyApi.Controllers
         {
             try
             {
+                _logger.LogInformation($"Currency code {currencycode} rate requested:");
+
                 if (string.IsNullOrEmpty(currencycode))
                 {
                     return BadRequest(new ResponseModel
@@ -88,7 +74,7 @@ namespace DotNetCoreCurrencyApi.Controllers
                         Errors = "Currency not found"
                     });
                 }
-                else if (!currency.RateQueryEnabled)
+                else if (!currency.RestEnabled)
                 {
                     return BadRequest(new ResponseModel
                     {
@@ -98,8 +84,35 @@ namespace DotNetCoreCurrencyApi.Controllers
                     });
                 }
 
-                // call rate api
-                return Ok();
+                // ----------------------------------------
+                // call rate api endpoint
+                // ----------------------------------------
+                CurrencyRateModel currencyRate = await HttpClientHelper.CallExternalRateEndpoint(currency, _httpClientFactory);
+                if (currencyRate == null)
+                {
+                    return BadRequest(new ResponseModel
+                    {
+                        Message = "No rate found",
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        Data = $"We couldn't get the rate for {currencycode} for today",
+                    });
+                }
+
+                // ---------------------------------------------------------------------------------
+                // here we calculate a rate to get the value for each currency
+                // we have a base ratio saved in database to calculate the rates based on USD prices                    
+                // ---------------------------------------------------------------------------------
+                return Ok(new ResponseModel
+                {
+                    Message = $"Here is the rate for {currencycode.ToUpper()}",
+                    StatusCode = StatusCodes.Status200OK,
+                    Data = JsonConvert.SerializeObject(new CurrencyRateModel
+                    {
+                        Code = currencycode.ToUpper(),
+                        PurchasePrice = currencyRate.PurchasePrice * currency.USDRateBase,
+                        SellPrice = currencyRate.SellPrice * currency.USDRateBase
+                    })
+                });
             }
             catch (Exception ex)
             {
@@ -108,46 +121,13 @@ namespace DotNetCoreCurrencyApi.Controllers
             return BadRequest();
         }
 
-        [HttpPost]
-        [Route("currencies/exchange")]
-        public async Task<IActionResult> PurchaseCurrency([CustomizeValidator(Skip = true)] ExchangeTransactionModel model)
+        private JsonSerializerOptions GetJsonSerializerOptions()
         {
-            try
+            return new JsonSerializerOptions
             {
-                var response = new ResponseModel();
-                ExchangeTransactionModelValidator validator = new ExchangeTransactionModelValidator();
-                ValidationResult validationResults = await validator.ValidateAsync(model);
-
-                // ----------------------------------------
-                // validate input
-                // ----------------------------------------
-                if (!validationResults.IsValid)
-                {
-                    var errors = new Dictionary<string, string>();
-                    foreach (var error in validationResults.Errors)
-                    {
-                        errors.Add(error.PropertyName, error.ErrorMessage);
-                    }
-
-                    response.Message = "Some errors ocurred";
-                    response.StatusCode = StatusCodes.Status400BadRequest;
-                    response.Data = "";
-                    response.Errors = errors;
-
-                    return BadRequest(response);
-                }
-
-                // -------------------------------------------
-                // validate user transactions per month limit
-                // -------------------------------------------
-
-                return Ok("model ok");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.ToString());
-                return BadRequest();
-            }
+                IgnoreNullValues = true,
+                PropertyNameCaseInsensitive = true
+            };
         }
     }
 }

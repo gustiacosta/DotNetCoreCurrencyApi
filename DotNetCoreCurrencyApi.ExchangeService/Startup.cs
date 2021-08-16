@@ -16,7 +16,7 @@ using Polly.Extensions.Http;
 using System;
 using System.Net.Http;
 
-namespace DotNetCoreCurrencyApi
+namespace DotNetCoreCurrencyApi.ExchangeService
 {
     public class Startup
     {
@@ -70,13 +70,14 @@ namespace DotNetCoreCurrencyApi
                 .WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
         }
 
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNetCoreCurrencyApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DotNetCoreCurrencyApi.ExchangeService v1"));
             }
 
             app.UseGlobalExceptionMiddleware();
@@ -93,8 +94,6 @@ namespace DotNetCoreCurrencyApi
             {
                 endpoints.MapControllers();
             });
-
-            // add healthcheck
         }
     }
 }

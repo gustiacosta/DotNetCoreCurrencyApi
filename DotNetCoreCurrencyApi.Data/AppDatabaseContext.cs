@@ -20,9 +20,11 @@ namespace DotNetCoreCurrencyApi.Data
             {
                 entity.ToTable("ExchangeTransactions");
                 entity.Property(e => e.UserId).IsRequired();
-                entity.Property(e => e.Amount).IsRequired().HasColumnType("decimal(18, 2)");
-                entity.Property(e => e.CurrencyCode).IsRequired().HasMaxLength(3);
-                entity.Property(e => e.TransactionDate).IsRequired();
+                entity.Property(e => e.TransactionUtcDate).IsRequired();
+                entity.Property(e => e.OriginAmount).IsRequired().HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.OriginCurrencyCode).IsRequired().HasMaxLength(3);
+                entity.Property(e => e.DestinationCurrencyCode).IsRequired().HasMaxLength(3);
+                entity.Property(e => e.PurchasedAmount).IsRequired().HasColumnType("decimal(18, 5)");
             });
 
             modelBuilder.Entity<Currency>(entity =>
@@ -31,7 +33,7 @@ namespace DotNetCoreCurrencyApi.Data
                 entity.Property(e => e.Code).IsRequired().HasMaxLength(3);
                 entity.Property(e => e.TransactionLimitPerMonth).IsRequired().HasColumnType("decimal(18, 2)");
                 entity.Property(e => e.RateApiEndpoint).IsRequired().HasMaxLength(300);
-                entity.Property(e => e.RateQueryEnabled).IsRequired();
+                entity.Property(e => e.RestEnabled).IsRequired();
                 entity.Property(e => e.USDRateBase).IsRequired().HasColumnType("decimal(18, 2)");
             });
 

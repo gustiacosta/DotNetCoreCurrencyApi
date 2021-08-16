@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi", "DotNetCoreCurrencyApi\DotNetCoreCurrencyApi.csproj", "{9550D7B9-B1F8-4D2D-8D6B-347D53AFA425}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.RateService", "DotNetCoreCurrencyApi\DotNetCoreCurrencyApi.RateService.csproj", "{9550D7B9-B1F8-4D2D-8D6B-347D53AFA425}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi.Core", "DotNetCoreCurrencyApi.Core\DotNetCoreCurrencyApi.Core.csproj", "{34C2EFC6-961A-4C5F-A03F-772CE34A4E21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Core", "DotNetCoreCurrencyApi.Core\DotNetCoreCurrencyApi.Core.csproj", "{34C2EFC6-961A-4C5F-A03F-772CE34A4E21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi.Data", "DotNetCoreCurrencyApi.Data\DotNetCoreCurrencyApi.Data.csproj", "{8A96EAAA-1B7D-4A19-8B6B-2221B6E50176}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Data", "DotNetCoreCurrencyApi.Data\DotNetCoreCurrencyApi.Data.csproj", "{8A96EAAA-1B7D-4A19-8B6B-2221B6E50176}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi.Services", "DotNetCoreCurrencyApi.Services\DotNetCoreCurrencyApi.Services.csproj", "{C4EAEEAA-854B-4CA6-B953-06220DBB93FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Services", "DotNetCoreCurrencyApi.Services\DotNetCoreCurrencyApi.Services.csproj", "{C4EAEEAA-854B-4CA6-B953-06220DBB93FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi.Infrastructure", "DotNetCoreCurrencyApi.Infrastructure\DotNetCoreCurrencyApi.Infrastructure.csproj", "{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Infrastructure", "DotNetCoreCurrencyApi.Infrastructure\DotNetCoreCurrencyApi.Infrastructure.csproj", "{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi.ExchangeService", "DotNetCoreCurrencyApi.ExchangeService\DotNetCoreCurrencyApi.ExchangeService.csproj", "{3B03740B-C532-4DB3-B2B9-2926B3907855}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B03740B-C532-4DB3-B2B9-2926B3907855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B03740B-C532-4DB3-B2B9-2926B3907855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B03740B-C532-4DB3-B2B9-2926B3907855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B03740B-C532-4DB3-B2B9-2926B3907855}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

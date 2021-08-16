@@ -8,8 +8,10 @@ namespace DotNetCoreCurrencyApi.Core.Domain
         [Key]
         public long TransactionId { get; set; }
         public int UserId { get; set; }
-        public decimal Amount { get; set; }
-        public string CurrencyCode { get; set; }
-        public DateTime TransactionDate { get; set; }
+        public DateTime TransactionUtcDate { get; set; }
+        public decimal OriginAmount { get; set; }
+        public string OriginCurrencyCode { get; set; } = "ARS";
+        public string DestinationCurrencyCode { get; set; }
+        public decimal PurchasedAmount { get; set; }
     }
 }
