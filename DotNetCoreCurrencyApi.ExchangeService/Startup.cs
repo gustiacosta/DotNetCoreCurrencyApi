@@ -61,6 +61,8 @@ namespace DotNetCoreCurrencyApi.ExchangeService
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             }).SetHandlerLifetime(TimeSpan.FromMinutes(5))
               .AddPolicyHandler(GetRetryPolicy());
+
+            services.AddHealthChecks();
         }
 
         private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
@@ -93,6 +95,7 @@ namespace DotNetCoreCurrencyApi.ExchangeService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }
