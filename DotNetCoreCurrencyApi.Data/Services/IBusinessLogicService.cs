@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DotNetCoreCurrencyApi.Infrastructure
+namespace DotNetCoreCurrencyApi.Data.Services
 {
-    public interface IEntityGenericRepository
+    public interface IBusinessLogicService
     {
         IEnumerable<TEntity> GetAll<TEntity>(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
@@ -78,6 +78,5 @@ namespace DotNetCoreCurrencyApi.Infrastructure
         void Save();
 
         Task SaveAsync();
-
     }
 }

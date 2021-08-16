@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Core"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Data", "DotNetCoreCurrencyApi.Data\DotNetCoreCurrencyApi.Data.csproj", "{8A96EAAA-1B7D-4A19-8B6B-2221B6E50176}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Services", "DotNetCoreCurrencyApi.Services\DotNetCoreCurrencyApi.Services.csproj", "{C4EAEEAA-854B-4CA6-B953-06220DBB93FD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreCurrencyApi.Infrastructure", "DotNetCoreCurrencyApi.Infrastructure\DotNetCoreCurrencyApi.Infrastructure.csproj", "{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi.ExchangeService", "DotNetCoreCurrencyApi.ExchangeService\DotNetCoreCurrencyApi.ExchangeService.csproj", "{3B03740B-C532-4DB3-B2B9-2926B3907855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreCurrencyApi.Tests", "DotNetCoreCurrencyApi.Tests\DotNetCoreCurrencyApi.Tests.csproj", "{516161E1-1281-4DDA-96BC-EB6399070C20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{8A96EAAA-1B7D-4A19-8B6B-2221B6E50176}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A96EAAA-1B7D-4A19-8B6B-2221B6E50176}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A96EAAA-1B7D-4A19-8B6B-2221B6E50176}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4EAEEAA-854B-4CA6-B953-06220DBB93FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4EAEEAA-854B-4CA6-B953-06220DBB93FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4EAEEAA-854B-4CA6-B953-06220DBB93FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4EAEEAA-854B-4CA6-B953-06220DBB93FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0F2B465-548B-47E1-98AC-F3E46F6F2FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{3B03740B-C532-4DB3-B2B9-2926B3907855}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B03740B-C532-4DB3-B2B9-2926B3907855}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B03740B-C532-4DB3-B2B9-2926B3907855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{516161E1-1281-4DDA-96BC-EB6399070C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{516161E1-1281-4DDA-96BC-EB6399070C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{516161E1-1281-4DDA-96BC-EB6399070C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{516161E1-1281-4DDA-96BC-EB6399070C20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DotNetCoreCurrencyApi.Services;
+using DotNetCoreCurrencyApi.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
@@ -12,5 +12,5 @@ namespace DotNetCoreCurrencyApi.ExchangeService.Controllers
         internal IBusinessLogicService _service;
         internal IConfiguration _configuration;
         internal IHttpClientFactory _httpClientFactory;
-    }
+    }    
 }

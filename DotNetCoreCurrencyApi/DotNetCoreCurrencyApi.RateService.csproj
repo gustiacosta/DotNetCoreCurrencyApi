@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DotNetCoreCurrencyApi.Core\DotNetCoreCurrencyApi.Core.csproj" />
     <ProjectReference Include="..\DotNetCoreCurrencyApi.Data\DotNetCoreCurrencyApi.Data.csproj" />
-    <ProjectReference Include="..\DotNetCoreCurrencyApi.Services\DotNetCoreCurrencyApi.Services.csproj" />
+    <ProjectReference Include="..\DotNetCoreCurrencyApi.Infrastructure\DotNetCoreCurrencyApi.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

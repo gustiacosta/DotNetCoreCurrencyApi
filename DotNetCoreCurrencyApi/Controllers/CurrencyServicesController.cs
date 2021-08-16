@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
 using DotNetCoreCurrencyApi.Core.Domain;
 using DotNetCoreCurrencyApi.Core.Models;
+using DotNetCoreCurrencyApi.Data.Services;
 using DotNetCoreCurrencyApi.Infrastructure.Helpers;
-using DotNetCoreCurrencyApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -106,12 +103,12 @@ namespace DotNetCoreCurrencyApi.Controllers
                 {
                     Message = $"Here is the rate for {currencycode.ToUpper()}",
                     StatusCode = StatusCodes.Status200OK,
-                    Data = JsonConvert.SerializeObject(new CurrencyRateModel
+                    Data = new CurrencyRateModel
                     {
                         Code = currencycode.ToUpper(),
                         PurchasePrice = currencyRate.PurchasePrice * currency.USDRateBase,
                         SellPrice = currencyRate.SellPrice * currency.USDRateBase
-                    })
+                    }
                 });
             }
             catch (Exception ex)

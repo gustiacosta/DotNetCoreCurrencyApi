@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
-using DotNetCoreCurrencyApi.Services;
+using DotNetCoreCurrencyApi.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 

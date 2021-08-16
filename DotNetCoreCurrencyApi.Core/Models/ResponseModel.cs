@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace DotNetCoreCurrencyApi.Core.Models
 {
@@ -6,7 +6,11 @@ namespace DotNetCoreCurrencyApi.Core.Models
     {
         public int StatusCode { get; set; }
         public string Message { get; set; }
-        public object Errors { get; set; }
-        public string Data { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public dynamic Errors { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public dynamic Data { get; set; }
     }
 }

@@ -1,8 +1,9 @@
 using DotNetCoreCurrencyApi.Data;
+using DotNetCoreCurrencyApi.Data.Repository;
+using DotNetCoreCurrencyApi.Data.Services;
 using DotNetCoreCurrencyApi.Infrastructure;
 using DotNetCoreCurrencyApi.Infrastructure.Middleware;
 using DotNetCoreCurrencyApi.Infrastructure.Validators;
-using DotNetCoreCurrencyApi.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

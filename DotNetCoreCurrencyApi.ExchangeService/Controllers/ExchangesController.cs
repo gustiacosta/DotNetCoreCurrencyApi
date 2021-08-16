@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DotNetCoreCurrencyApi.Core.Domain;
 using DotNetCoreCurrencyApi.Core.Models;
+using DotNetCoreCurrencyApi.Data.Services;
 using DotNetCoreCurrencyApi.Infrastructure.Helpers;
-using DotNetCoreCurrencyApi.Services;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
@@ -36,7 +36,7 @@ namespace DotNetCoreCurrencyApi.ExchangeService.Controllers
         }
 
         /// <summary>
-        /// This call our rates microservice to get the current rates and make a currency purchase
+        /// This calls our rates microservice to get the current rates and make a currency purchase
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -113,7 +113,7 @@ namespace DotNetCoreCurrencyApi.ExchangeService.Controllers
                                                                x.DestinationCurrencyCode.ToLower().Equals(model.CurrencyCode.ToLower()));
                 if (userTransactions.Any())
                 {
-                    if ((userTransactions.Select(c => c.PurchasedAmount).Sum() + currency.TransactionLimitPerMonth) > currency.TransactionLimitPerMonth)
+                    if ((userTransactions.Select(c => c.PurchasedAmount).Sum() + model.Amount) > currency.TransactionLimitPerMonth)
                     {
                         return BadRequest(new ResponseModel
                         {
@@ -172,7 +172,7 @@ namespace DotNetCoreCurrencyApi.ExchangeService.Controllers
                 {
                     Message = "Transaction succesfull",
                     StatusCode = StatusCodes.Status200OK,
-                    Data = $"Transaction Id: {transaction.TransactionId}; Purchased amount: {purchasedAmount:N5}"
+                    Data = $"Transaction Id: {transaction.TransactionId}; Purchased amount: {purchasedAmount:N5} {transaction.DestinationCurrencyCode}"
                 });
             }
             catch (Exception ex)
