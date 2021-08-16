@@ -14,7 +14,7 @@
 * Separated into 2 microservices (ExchangeService and RateService)
   An api gateway like Ocelot can be added to handle both microservice's endpoints
 * Health checks
-* Unit testing with xUnit
+* Unit testing with xUnit (Unit testing and integration testing)
 
 # About using the user id:
 I think adding the user id to the input model when making a currency purchase is ok for example when our service is being used by an external operator like an account manager, not for the user itself.
